@@ -1,5 +1,4 @@
-import 'package:ecom/colors.dart';
-import 'package:ecom/data/data.dart';
+
 import 'package:ecom/screens/home_screen.dart';
 import 'package:ecom/widgets/appbar.dart';
 import 'package:ecom/widgets/drawer.dart';
@@ -7,7 +6,7 @@ import 'package:flutter/material.dart';
 
 class CategoriesScreen extends StatelessWidget {
   CategoriesScreen({Key? key}) : super(key: key);
-  var categoris = [
+  final categoris = [
     "All",
     "jewelery",
     "men's clothing",

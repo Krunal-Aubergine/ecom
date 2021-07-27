@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({Key? key}) : super(key: key);
-  final ScrollController _scrollController = ScrollController();
+  //final ScrollController _scrollController = ScrollController();
 
   @override
   Widget build(BuildContext context) {
