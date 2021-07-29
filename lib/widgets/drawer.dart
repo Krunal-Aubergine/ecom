@@ -1,8 +1,12 @@
+import 'package:ecom/constants.dart';
 import 'package:ecom/screens/categories_screen.dart';
+import 'package:ecom/screens/signin/signin_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 
 class NavDrawer extends StatelessWidget {
+  final _auth = FirebaseAuth.instance;
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -22,7 +26,7 @@ class NavDrawer extends StatelessWidget {
               Navigator.pushAndRemoveUntil(
                   context,
                   MaterialPageRoute(builder: (context) => CategoriesScreen()),
-                  (route) => false)
+                  (route) => false),
             },
           ),
           ListTile(
@@ -48,7 +52,14 @@ class NavDrawer extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.exit_to_app),
             title: Text('Logout'),
-            onTap: () => {Navigator.of(context).pop()},
+            onTap: () => {
+              _auth.signOut(),
+              Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (context) => LoginScreen()),
+                  (route) => false),
+              isLoggedIn = false,
+            },
           ),
         ],
       ),

@@ -1,8 +1,16 @@
-import 'package:ecom/colors.dart';
+import 'package:ecom/constants.dart';
 import 'package:ecom/screens/categories_screen.dart';
+import 'package:ecom/screens/home_screen.dart';
+import 'package:ecom/screens/signin/signin_screen.dart';
+import 'package:ecom/screens/signup/register_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  //await FirebaseAuth.instance.useAuthEmulator('localhost', 9099);
   runApp(MyApp());
 }
 
@@ -13,7 +21,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData.light().copyWith(
+      theme: ThemeData(
         scaffoldBackgroundColor: Colors.white,
         cardColor: Colors.grey[200],
         primaryColor: Color(0xFF263238),
@@ -21,7 +29,8 @@ class MyApp extends StatelessWidget {
         primaryColorDark: Color(0xFF000a12),
         primaryColorLight: Color(0XFF4f5b62),
       ),
-      home: CategoriesScreen(),
+      // home: CategoriesScreen(),
+      home: isLoggedIn ? HomeScreen() : LoginScreen(),
     );
   }
 }

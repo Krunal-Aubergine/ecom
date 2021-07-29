@@ -15,36 +15,47 @@ class HomeScreen extends StatelessWidget {
       drawer: NavDrawer(),
       appBar: kAppBar,
       body: GridView.builder(
+        padding: EdgeInsets.all(15),
         // controller: _scrollController,
         itemCount: data.length,
-        gridDelegate:
-            SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+        gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+          maxCrossAxisExtent: 400,
+          childAspectRatio: 4 / 3,
+          crossAxisSpacing: 15,
+          mainAxisSpacing: 15,
+        ),
         itemBuilder: (BuildContext context, int index) {
           return GestureDetector(
             child: Card(
-              margin: EdgeInsets.all(7),
-              elevation: 3.0,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Container(
-                    // alignment: Alignment.center,
-                    child: Image.network(
-                      data[index]['image'].toString(),
-                      height: 100,
-                      width: 140,
-                      fit: BoxFit.scaleDown,
-                    ),
+              clipBehavior: Clip.antiAlias,
+              elevation: 8,
+              margin: EdgeInsets.zero,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15)),
+              child: GridTile(
+                child: Image.network(
+                  "${data[index]['image']}",
+                  fit: BoxFit.cover,
+                ),
+                footer: Container(
+                  padding: EdgeInsets.all(15),
+                  height: 60,
+                  decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                          colors: [Colors.transparent, Colors.black],
+                          stops: [0.0, 0.7],
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter)),
+                  child: Text(
+                    "${data[index]['title']}",
+                    style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                   ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Text(
-                    data[index]['title'].toString(),
-                    overflow: TextOverflow.clip,
-                    softWrap: true,
-                  )
-                ],
+                ),
               ),
             ),
             onTap: () {
