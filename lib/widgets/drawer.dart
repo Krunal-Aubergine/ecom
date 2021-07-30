@@ -32,7 +32,7 @@ class NavDrawer extends StatelessWidget {
           ListTile(
             leading: Icon(Ionicons.woman_outline),
             title: Text('Woman'),
-            onTap: () => {},
+            onTap: () => {Navigator.of(context).pop()},
           ),
           ListTile(
             leading: Icon(Ionicons.man_outline),

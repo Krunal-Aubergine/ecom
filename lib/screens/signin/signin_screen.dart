@@ -15,6 +15,16 @@ class _LoginScreenState extends State<LoginScreen> {
   final auth = FirebaseAuth.instance;
 
   @override
+  void dispose() {
+    super.dispose();
+  }
+
+  void _showToast(BuildContext context, e) {
+    final scaffold = ScaffoldMessenger.of(context);
+    scaffold.showSnackBar(SnackBar(content: Text(e)));
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: kAppBar,
@@ -30,6 +40,13 @@ class _LoginScreenState extends State<LoginScreen> {
                   borderRadius: BorderRadius.circular(15),
                 ),
               ),
+              onSubmitted: (value) {
+                setState(() {
+                  if (value.isEmpty || !value.contains('@')) {
+                    _showToast(context, 'enter valid email');
+                  }
+                });
+              },
               onChanged: (value) {
                 setState(() {
                   _email = value.trim();
@@ -48,6 +65,14 @@ class _LoginScreenState extends State<LoginScreen> {
                   borderRadius: BorderRadius.circular(15),
                 ),
               ),
+              onSubmitted: (value) {
+                setState(() {
+                  if (value.length < 6 || value.isEmpty) {
+                    _showToast(
+                        context, 'password should be more than 6 charecters');
+                  }
+                });
+              },
               onChanged: (value) {
                 setState(() {
                   _password = value.trim();
@@ -68,7 +93,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     Navigator.of(context).pushReplacement(
                         MaterialPageRoute(builder: (context) => HomeScreen()));
                   });
-                  isLoggedIn = true;
+                  setState(() {
+                    isLoggedIn = true;
+                  });
                 }),
             MaterialButton(
               colorBrightness: Brightness.dark,
@@ -82,7 +109,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   Navigator.of(context).pushReplacement(
                       MaterialPageRoute(builder: (context) => HomeScreen()));
                 });
-                isLoggedIn = true;
+                setState(() {
+                  isLoggedIn = true;
+                });
               },
             )
           ])

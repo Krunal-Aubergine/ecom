@@ -11,6 +11,8 @@ class ProductScreen extends StatelessWidget {
       appBar: kAppBar,
       body: Center(
         child: Container(
+            decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
+            clipBehavior: Clip.antiAlias,
             height: MediaQuery.of(context).size.height * 0.50,
             width: MediaQuery.of(context).size.width * 0.7,
             child: Card(
@@ -25,6 +27,10 @@ class ProductScreen extends StatelessWidget {
                 Text(
                   data[index]['title'].toString(),
                   style: TextStyle(fontSize: 18),
+                ),
+                Text(
+                  data[index]['description'].toString(),
+                  style: TextStyle(fontSize: 12),
                 ),
                 Text(
                   data[index]['price'].toString() + '\$',
